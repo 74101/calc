@@ -16,7 +16,8 @@
       color: aquamarine;
     }
 
-    input {
+    input,
+    button {
       font: inherit;
       background-color: inherit;
       border-radius: 7px;
@@ -26,7 +27,12 @@
       text-align: center;
     }
 
-    input:hover, input:focus {
+    button {
+      padding: 4rem 6rem;
+    }
+
+    input:hover,
+    input:focus {
       border-color: aquamarine;
     }
 
@@ -53,15 +59,14 @@
   <h2>прошло: <span class="q1"></span></h2>
   <h2>в день: <span class="q2"></span></h2>
   <h2>ждать: <span class="q3"></span></h2>
+  <button>click me</button>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const body = document.querySelector('body')
+      const button = document.querySelector('button')
       const input = document.querySelector('input')
       input.focus()
-      input.click()
-      body.addEventListener('click', () => {
+      button.addEventListener('click', function (evt) {
         input.focus()
-        input.click()
       })
       const time1 = new Date("2024-07-17").getTime()
       const time2 = new Date().getTime()
