@@ -78,7 +78,8 @@
 
       const differenceInMilliseconds = time2 - time1
 
-      const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24)
+      const differenceInDays = Math.round(differenceInMilliseconds / (1000 * 60 * 60 * 24))
+
       const Q = 667
       const q1 = document.querySelector('.q1')
       const q2 = document.querySelector('.q2')
