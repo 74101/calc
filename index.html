@@ -16,7 +16,7 @@
       padding-right: 20px;
       font-family: sans-serif;
       background-color: black;
-      color: aquamarine;
+      color: darkgray;
       font-weight: bold;
     }
 
@@ -26,7 +26,7 @@
       background-color: inherit;
       border-radius: 7px;
       color: inherit;
-      border: 1px solid aquamarine;
+      border: 1px solid springgreen;
       outline: none;
       text-align: center;
     }
@@ -38,13 +38,17 @@
 
     input:hover,
     input:focus {
-      border-color: aquamarine;
+      border-color: springgreen;
     }
 
     h2 {
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+
+    button, input, span {
+      color: springgreen;
     }
 
     input::-webkit-outer-spin-button,
@@ -64,6 +68,7 @@
   <h2>выдано: <span class="q1"></span></h2>
   <h2>скорость: <span class="q2"></span></h2>
   <h2>ждать: <span class="q3"></span></h2>
+  <h2>дата выдачи: <span class="q4"></span></h2>
   <button>достать клавиатуру</button>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -73,6 +78,7 @@
       button.addEventListener('click', function (evt) {
         input.focus()
       })
+
       const time1 = new Date('2024-07-17').getTime()
       const time2 = new Date().getTime()
 
@@ -84,6 +90,10 @@
       const q1 = document.querySelector('.q1')
       const q2 = document.querySelector('.q2')
       const q3 = document.querySelector('.q3')
+      const q4 = document.querySelector('.q4')
+
+
+
       input.addEventListener('input', function (evt) {
         if (this.value.length > 3) {
           this.value = input.value.slice(0, 3)
@@ -91,10 +101,36 @@
         if (this.value > 534) {
           this.value = 534
         }
+
         difference = Q - this.value
+        wait = Math.round(this.value / (difference / differenceInDays))
+
+        let today = new Date()
+        today.setDate(today.getDate() + wait)
+        let dd = String(today.getDate()).padStart(2, '0')
+        let mm = String(today.getMonth() + 1).padStart(2, '0')
+        let yyyy = today.getFullYear()
+
+        if (mm == 1) mm = 'января'
+        if (mm == 2) mm = 'февраля'
+        if (mm == 3) mm = 'марта'
+        if (mm == 4) mm = 'апреля'
+        if (mm == 5) mm = 'мая'
+        if (mm == 6) mm = 'июня'
+        if (mm == 7) mm = 'июля'
+        if (mm == 8) mm = 'августа'
+        if (mm == 9) mm = 'сентября'
+        if (mm == 10) mm = 'октября'
+        if (mm == 11) mm = 'ноября'
+        if (mm == 12) mm = 'декабря'
+
+        let result = dd + ' ' + mm + ' ' + yyyy
+        q4.innerHTML = result
+
         q1.innerHTML = difference
         q2.innerHTML = (difference / differenceInDays).toFixed(2) + ' шт/день'
-        q3.innerHTML = Math.round(this.value / (difference / differenceInDays)) + ' дней'
+        q3.innerHTML = wait + ' дней'
+
       })
     })
   </script>
