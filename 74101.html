@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calc</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: cursive, sans-serif;
+      background-color: black;
+      color: aquamarine;
+    }
+
+    input {
+      font: inherit;
+      background-color: inherit;
+      border-radius: 7px;
+      color: inherit;
+      border: 1px solid aquamarine;
+      outline: none;
+      text-align: center;
+    }
+
+    input:hover, input:focus {
+      border-color: aquamarine;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label>
+      <h2>о чёрт: <input type="number" min="1" max="1"></h2>
+    </label>
+  </div>
+  <h2>прошло: <span class="q1"></span></h2>
+  <h2>в день: <span class="q2"></span></h2>
+  <h2>ждать: <span class="q3"></span></h2>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.querySelector('input')
+      input.focus()
+
+      const time1 = new Date("2024-07-17").getTime()
+      const time2 = new Date().getTime()
+
+      const differenceInMilliseconds = time2 - time1
+
+      const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24)
+      const Q = 667
+      const q1 = document.querySelector('.q1')
+      const q2 = document.querySelector('.q2')
+      const q3 = document.querySelector('.q3')
+      input.addEventListener('input', function (evt) {
+        difference = Q - this.value
+        q1.innerHTML = difference
+        q2.innerHTML = (difference / differenceInDays).toFixed(2)
+        q3.innerHTML = Math.round(this.value / (difference / differenceInDays))
+      })
+    })
+  </script>
+</body>
+
+</html>
