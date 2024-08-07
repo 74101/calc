@@ -6,12 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calc</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       display: flex;
       flex-direction: column;
-      max-width: 400px;
+      max-width: 450px;
       margin-left: auto;
       margin-right: auto;
+      padding-top: 20px;
       padding-left: 20px;
       padding-right: 20px;
       font-family: sans-serif;
@@ -33,7 +37,7 @@
 
     button {
       padding: 4rem 6rem;
-      margin-top: 30px;
+      margin-top: 70px;
     }
 
     input:hover,
@@ -45,9 +49,12 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      margin: 0 0 10px;
     }
 
-    button, input, span {
+    button,
+    input,
+    span {
       color: springgreen;
     }
 
@@ -55,6 +62,58 @@
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+    }
+
+    .bar_outer {
+      position: relative;
+      width: 90%;
+      height: 30px;
+      background-color: #333;
+      padding: 0 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .bar_inner {
+      width: 0;
+      height: 20px;
+      background-color: springgreen;
+    }
+
+    .bar_outer .m {
+      position: absolute;
+      top: 130%;
+      width: 1px;
+      text-align: center;
+    }
+    .bar_outer .m::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      width: 1px;
+      height: 10px;
+      background: #333;
+    }
+
+    .bar_outer .m0 {
+      left: 0%;
+    }
+
+    .bar_outer .m25 {
+      left: 25%;
+    }
+
+    .bar_outer .m50 {
+      left: 50%;
+    }
+
+    .bar_outer .m75 {
+      left: 75%;
+    }
+
+    .bar_outer .m100 {
+      left: calc(100% - 1px);
     }
   </style>
 </head>
@@ -70,6 +129,15 @@
   <h2>скорость: <span class="q2"></span></h2>
   <h2>ждать: <span class="q3"></span></h2>
   <h2>выдача: <span class="q4"></span></h2>
+  <h2>выполнено: <span class="q5"></span></h2>
+  <div class="bar_outer">
+    <div class="bar_inner" style="width:0"></div>
+    <div class="m m0">0%</div>
+    <div class="m m25">25%</div>
+    <div class="m m50">50%</div>
+    <div class="m m75">75%</div>
+    <div class="m m100">100%</div>
+  </div>
   <button>достать клавиатуру</button>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -94,9 +162,10 @@
       const q2 = document.querySelector('.q2')
       const q3 = document.querySelector('.q3')
       const q4 = document.querySelector('.q4')
+      const q5 = document.querySelector('.q5')
+      const bar_inner = document.querySelector('.bar_inner')
 
-
-      q0.innerHTML = differenceInDays + ' дней'
+      q0.innerHTML = differenceInDays + ' д.'
 
       input.addEventListener('input', function (evt) {
         if (this.value.length > 3) {
@@ -128,11 +197,15 @@
         if (mm == 11) mm = 'ноября'
         if (mm == 12) mm = 'декабря'
 
+        let percentage = Math.round((difference / Q) * 100)
         let result = dd + ' ' + mm + ' ' + yyyy
-        q4.innerHTML = result
+
         q1.innerHTML = difference
-        q2.innerHTML = (difference / differenceInDays).toFixed(2) + ' шт/день'
-        q3.innerHTML = wait + ' дней'
+        q2.innerHTML = (difference / differenceInDays).toFixed(2) + ' авто / д.'
+        q3.innerHTML = wait + ' д.'
+        q4.innerHTML = result
+        q5.innerHTML = percentage + '%'
+        bar_inner.style.width = `${percentage}%`
 
       })
     })
