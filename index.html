@@ -212,38 +212,39 @@
 
       })
       inputSpeed.addEventListener('input', function (evt) {
-        difference = Q - input.value
-        wait = Math.round(input.value / this.value)
-
-        let today = new Date()
-        today.setDate(today.getDate() + wait)
-        let dd = String(today.getDate()).padStart(2, '0')
-        let mm = String(today.getMonth() + 1).padStart(2, '0')
-        let yyyy = today.getFullYear()
-
-        if (mm == 1) mm = 'января'
-        if (mm == 2) mm = 'февраля'
-        if (mm == 3) mm = 'марта'
-        if (mm == 4) mm = 'апреля'
-        if (mm == 5) mm = 'мая'
-        if (mm == 6) mm = 'июня'
-        if (mm == 7) mm = 'июля'
-        if (mm == 8) mm = 'августа'
-        if (mm == 9) mm = 'сентября'
-        if (mm == 10) mm = 'октября'
-        if (mm == 11) mm = 'ноября'
-        if (mm == 12) mm = 'декабря'
-
-        let percentage = Math.round((difference / Q) * 100)
-        let result = dd + ' ' + mm + ' ' + yyyy
-
-        q1.innerHTML = difference
-        q2.innerHTML = (difference / differenceInDays).toFixed(2) + ' авто / д.'
-        q3.innerHTML = wait + ' д.'
-        q4.innerHTML = result
-        q5.innerHTML = percentage + '%'
-        bar_inner.style.width = `${percentage}%`
-
+        if(this.value > 0) {
+          difference = Q - input.value
+          wait = Math.round(input.value / this.value)
+  
+          let today = new Date()
+          today.setDate(today.getDate() + wait)
+          let dd = String(today.getDate()).padStart(2, '0')
+          let mm = String(today.getMonth() + 1).padStart(2, '0')
+          let yyyy = today.getFullYear()
+  
+          if (mm == 1) mm = 'января'
+          if (mm == 2) mm = 'февраля'
+          if (mm == 3) mm = 'марта'
+          if (mm == 4) mm = 'апреля'
+          if (mm == 5) mm = 'мая'
+          if (mm == 6) mm = 'июня'
+          if (mm == 7) mm = 'июля'
+          if (mm == 8) mm = 'августа'
+          if (mm == 9) mm = 'сентября'
+          if (mm == 10) mm = 'октября'
+          if (mm == 11) mm = 'ноября'
+          if (mm == 12) mm = 'декабря'
+  
+          let percentage = Math.round((difference / Q) * 100)
+          let result = dd + ' ' + mm + ' ' + yyyy
+  
+          q1.innerHTML = difference
+          q2.innerHTML = (difference / differenceInDays).toFixed(2) + ' авто / д.'
+          q3.innerHTML = wait + ' д.'
+          q4.innerHTML = result
+          q5.innerHTML = percentage + '%'
+          bar_inner.style.width = `${percentage}%`
+        }
       })
     })
   </script>
