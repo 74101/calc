@@ -213,7 +213,7 @@
       })
       inputSpeed.addEventListener('input', function (evt) {
         difference = Q - this.value
-        wait = Math.round(this.value / this.value)
+        wait = Math.round(input.value / this.value)
 
         let today = new Date()
         today.setDate(today.getDate() + wait)
