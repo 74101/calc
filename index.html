@@ -168,17 +168,13 @@
 
       q0.innerHTML = differenceInDays + ' д.'
 
-      input.addEventListener('input', function (evt) {
-        if (this.value.length > 3) {
-          this.value = input.value.slice(0, 3)
+      function calc(value, speed) {
+        let difference = Q - value
+        if (speed > 0) {
+          let wait = Math.round(value / speed)
+        } else {
+          let wait = Math.round(value / (difference / differenceInDays))
         }
-        if (this.value > 534) {
-          this.value = 534
-        }
-
-        difference = Q - this.value
-        wait = Math.round(this.value / (difference / differenceInDays))
-
         let today = new Date()
         today.setDate(today.getDate() + wait)
         let dd = String(today.getDate()).padStart(2, '0')
@@ -207,7 +203,21 @@
         q4.innerHTML = result
         q5.innerHTML = percentage + '%'
         bar_inner.style.width = `${percentage}%`
+      }
 
+      input.addEventListener('input', function (evt) {
+        if (this.value.length > 3) {
+          this.value = input.value.slice(0, 3)
+        }
+        if (this.value > 534) {
+          this.value = 534
+        }
+        calc(this.value)
+
+      })
+
+      q2.addEventListener('input', function (evt) {
+        calc(input.value, q2.value)
       })
     })
   </script>
