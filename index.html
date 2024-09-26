@@ -123,11 +123,12 @@
   <h2>прошло: <span class="q0"></span></h2>
   <div>
     <label>
-      <h2>о чёрт: <input type="number" min="1" max="3"></h2>
+      <h2>о чёрт: <input class="input" type="number" min="1" max="3"></h2>
     </label>
   </div>
   <h2>выдано: <span class="q1"></span></h2>
-  <h2>скорость: <span class="q2"></span></h2>
+  <h2>ср. скорость: <span class="q2"></span></h2>
+  <h2>скорость: <input class="inputSpeed" type="number" min="1" max="3"></h2>
   <h2>ждать: <span class="q3"></span></h2>
   <h2>выдача: <span class="q4"></span></h2>
   <h2>выполнено: <span class="q5"></span></h2>
@@ -143,7 +144,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const button = document.querySelector('button')
-      const input = document.querySelector('input')
+      const input = document.querySelector('.input')
+      const inputSpeed = document.querySelector('.inputSpeed')
       input.focus()
       button.click()
       button.addEventListener('click', function (evt) {
@@ -178,6 +180,40 @@
 
         difference = Q - this.value
         wait = Math.round(this.value / (difference / differenceInDays))
+
+        let today = new Date()
+        today.setDate(today.getDate() + wait)
+        let dd = String(today.getDate()).padStart(2, '0')
+        let mm = String(today.getMonth() + 1).padStart(2, '0')
+        let yyyy = today.getFullYear()
+
+        if (mm == 1) mm = 'января'
+        if (mm == 2) mm = 'февраля'
+        if (mm == 3) mm = 'марта'
+        if (mm == 4) mm = 'апреля'
+        if (mm == 5) mm = 'мая'
+        if (mm == 6) mm = 'июня'
+        if (mm == 7) mm = 'июля'
+        if (mm == 8) mm = 'августа'
+        if (mm == 9) mm = 'сентября'
+        if (mm == 10) mm = 'октября'
+        if (mm == 11) mm = 'ноября'
+        if (mm == 12) mm = 'декабря'
+
+        let percentage = Math.round((difference / Q) * 100)
+        let result = dd + ' ' + mm + ' ' + yyyy
+
+        q1.innerHTML = difference
+        q2.innerHTML = (difference / differenceInDays).toFixed(2) + ' авто / д.'
+        q3.innerHTML = wait + ' д.'
+        q4.innerHTML = result
+        q5.innerHTML = percentage + '%'
+        bar_inner.style.width = `${percentage}%`
+
+      })
+      inputSpeed.addEventListener('input', function (evt) {
+        difference = Q - this.value
+        wait = Math.round(this.value / this.value)
 
         let today = new Date()
         today.setDate(today.getDate() + wait)
